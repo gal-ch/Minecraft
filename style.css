@@ -1,0 +1,91 @@
+*{
+    box-sizing: border-box;
+}
+body, html{
+    padding: 0;
+    margin: 20px 0 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.continer{
+    display: inline-flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    flex-shrink: inherit;
+}
+
+.tool{
+    border: rgb(54, 30, 30) 3px solid;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    height:900px;
+    margin-right: 10px;
+    width: 300px;
+}
+
+.toolsImg{
+    width: 150px;
+    height: 150px;
+    border: black 2px solid;
+     margin: 20px;
+}
+.item{
+    width: 150px;
+    height: 150px;
+    border: black 2px solid;
+     margin: 20px;
+}
+
+.storge{
+    border: rgb(54, 30, 30) 3px solid;
+    width: 300px;
+    height:900px;
+    padding: 0;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.game{
+/* border: black 3px solid; */
+  background-color: dodgerblue;
+  width: 1500px;
+  height:900px;
+  display: inline-flex;
+  flex-wrap: wrap;
+
+}
+.leaves{
+    background-image: url("./img/leaves.jpg");
+
+}
+.treetrunk{
+    background-image: url("./img/treetrunk.png");
+}
+.emptySqure{
+    height: 60px;
+    width: 60px;
+}
+.ground{
+    background-image: url("./img/gound1.png");
+}
+.stone{
+    background-image: url("./img/stone1.jpg");
+}
+#curoserAxe{
+    cursor: url(./img/vect.png), auto;
+}
+#curoserPickaxe{
+    cursor: url(./img/PickaxeCur.png), auto;
+}
+#curoserShovel{
+    cursor: url(./img/shovelCur.png), auto;
+}
