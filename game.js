@@ -5,14 +5,15 @@ let groundBlock = new Block("ground", "./img/gound1.png");
 let stoneBlock = new Block("stone", "./img/stone1.jpg");
 let leavesBlock = new Block("leaves", "./img/");
 let treeTrunkBlock = new Block("treetrunk", "./img/");
-let blocks = [groundBlock.count, stoneBlock.count, leavesBlock.count, treeTrunkBlock.count];
 let storge = document.querySelectorAll('.storge >img');
+let flag = false;
+let class_Name = "";
+let blocks = [groundBlock.count, stoneBlock.count, leavesBlock.count, treeTrunkBlock.count];
 let arrstorge = [...storge];
 for (let index = 0; index < arrstorge.length; index++) {
     arrstorge[index].setAttribute('Block',blocks[index]);
 }
-let flag = false;
-let class_Name = "";
+
 let start = () => {
     for (var i = 0; i < 15; i++) {
         myWorld[i] = [];
@@ -28,9 +29,7 @@ let start = () => {
             game.appendChild(div);
         }
     }
-    console.log(myWorld);
 }
-
 /*------------- create a ground----------------*/
 let creatGround = () => {
     for (let i = 11; i < myWorld.length; i++) {
@@ -47,7 +46,6 @@ let creatTree = (starti, startj) => {
             for (y = startj; y < startj + 3; y++) {
                 let position = "r" + x + "c" + y;
                 document.querySelector(`#${position}`).classList.add("leaves");
-                console.log(position);
             }
 
         }
@@ -61,34 +59,29 @@ let creatTree = (starti, startj) => {
 let creatStone = (j, hight) => {
     //check if there is no tree/ground
     for (let indexi = 10; hight > 0; indexi-- , hight--) {
-        console.log(indexi);
         let stone = document.querySelector(`#r${indexi}c${j}`);
         if (!stone.classList.contains("leaves") && !stone.classList.contains("ground")) {
             document.querySelector(`#r${indexi}c${j}`).classList.add("stone");
         }
     }
 }
-
-/*------checking if player chose axe to mine trees -----*/
+/*------checking if player choose axe to mine trees -----*/
 let playerWantTreesAxe = () => {
     game.removeAttribute('id', 'curoserPickaxe');
     game.removeAttribute('id', 'curoserShovel');
     game.setAttribute('id', 'curoserAxe');
-    console.log(document.querySelector(".game"));
 }
-/*------checking if player chose Shovel to mine ground -----*/
+/*------checking if player choose Shovel to mine ground -----*/
 let playerWantGround = () => {
     game.removeAttribute('id', 'curoserAxe');
     game.removeAttribute('id', 'curoserPickaxe');
     game.setAttribute('id', 'curoserShovel');
-    console.log(document.querySelector(".game"));
 }
-/*------checking if player chose Pickaxe to mine rock -----*/
+/*------checking if player choose Pickaxe to mine rock -----*/
 let playerWantRocks = () => {
     game.removeAttribute('id', 'curoserAxe');
     game.removeAttribute('id', 'curoserShovel');
     game.setAttribute('id', 'curoserPickaxe');
-    console.log(document.querySelector(".game"));
 }
 /*------getting the Row index for the squre player click------*/
 let getIndexRow = (target) => {
@@ -105,11 +98,8 @@ let getIndexCol = (target) => {
 /*----------remove tree from the world------------*/
 let removeTreetrunkFromWorld = (e) => {
     const squreToStorge = e.currentTarget.id;
-    console.log(squreToStorge);
     if (!myWorld[getIndexRow(squreToStorge) - 1][getIndexCol(squreToStorge)].classList.contains("treetrunk")) {
         myWorld[getIndexRow(squreToStorge)][getIndexCol(squreToStorge)].classList.remove('treetrunk');
-        console.log(myWorld[getIndexRow(squreToStorge)][getIndexCol(squreToStorge)]);
-        console.log(treeTrunkBlock);
         treeTrunkBlock.addBlock();
         return treeTrunkBlock.count;
     }
@@ -117,10 +107,8 @@ let removeTreetrunkFromWorld = (e) => {
 /*----------remove leaves from the world------------*/
 let removeLeavesFromWorld = (e) => {
     const squreToStorge = e.currentTarget.id;
-    console.log(squreToStorge);
     if (!myWorld[getIndexRow(squreToStorge) - 1][getIndexCol(squreToStorge)].classList.contains("leaves")) {
         myWorld[getIndexRow(squreToStorge)][getIndexCol(squreToStorge)].classList.remove('leaves');
-        console.log(myWorld[getIndexRow(squreToStorge)][getIndexCol(squreToStorge)]);
         leavesBlock.addBlock();
     }
 }
@@ -129,35 +117,24 @@ let removeGroundFromWorld = (e) => {
     const squreToStorge = e.currentTarget.id;
     console.log(myWorld[getIndexRow(squreToStorge) + 1][getIndexCol(squreToStorge)].classList);
     if (myWorld[getIndexRow(squreToStorge) - 1][getIndexCol(squreToStorge)].classList.length === 1) {
-        console.log(squreToStorge);
         myWorld[getIndexRow(squreToStorge)][getIndexCol(squreToStorge)].classList.remove('ground');
-        console.log(myWorld[getIndexRow(squreToStorge)][getIndexCol(squreToStorge)]);
         groundBlock.addBlock();
         arrstorge[0].block = groundBlock.count;
         console.log(arrstorge[0].block);
         return arrstorge[0].block;
     }
 }
-
-
 /*----------remove stone from the world------------*/
 let removeRockFromWorld = (e) => {
     const squreToStorge = e.currentTarget.id;
-    console.log(myWorld[getIndexRow(squreToStorge) + 1][getIndexCol(squreToStorge)].classList);
     if (!myWorld[getIndexRow(squreToStorge) - 1][getIndexCol(squreToStorge)].classList.contains("stone")) {
-        console.log(squreToStorge);
         myWorld[getIndexRow(squreToStorge)][getIndexCol(squreToStorge)].classList.remove('stone');
         stoneBlock.addBlock();
-        console.log(arrstorge);
-        
         return stoneBlock.count;
-
-
     }
 }
 /*----chack to see that player choose the right tool and calling to relevant function to delete the squre-----*/
 let removeSqureFromWorld = (e) => {
-    console.log(e.target);
     if (e.target.classList.contains('ground') && (game.getAttribute("id") === "curoserShovel")) {
         removeGroundFromWorld(e);
     }
@@ -171,10 +148,12 @@ let removeSqureFromWorld = (e) => {
         removeRockFromWorld(e);
     }
 }
-
 /*---------choose the element player want to add to the screen-------*/
 let addToWorld = (e) => {
     flag = true;
+    game.removeAttribute('id', 'curoserAxe');
+    game.removeAttribute('id', 'curoserPickaxe');
+    game.removeAttribute('id', 'curoserShovel');
     let x = parseInt(e.target.className.indexOf("-"));
     class_Name = e.target.className.substring(0, x); //getting the class of the elment player want
     return flag, class_Name;
@@ -201,6 +180,7 @@ creatTree(5, 6);
 creatStone(13, 4);
 creatStone(12, 4);
 creatStone(16, 5);
+
 for (var k = 0; k < myWorld.length; k++) {
     for (var t = 0; t < myWorld[k].length; t++) {
         myWorld[k][t].addEventListener('click', removeSqureFromWorld);
