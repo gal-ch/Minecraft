@@ -5,11 +5,20 @@ let groundBlock = new Block("ground", "./img/gound1.png");
 let stoneBlock = new Block("stone", "./img/stone1.jpg");
 let leavesBlock = new Block("leaves", "./img/");
 let treeTrunkBlock = new Block("treetrunk", "./img/");
-let storge = document.querySelectorAll('.storge >img');
-let flag = false;
-let class_Name = "";
 let blocks = [groundBlock.count, stoneBlock.count, leavesBlock.count, treeTrunkBlock.count];
+let storge = document.querySelectorAll('.storge >img');
+let playerChooseElemennt = false;
+let class_Name = "";
 let arrstorge = [...storge];
+let allCount = {
+    "ground":0,
+    'stone':0,
+    'leaves':0,
+    'treetrunk':0
+};
+
+if (allCount.ground > 0)
+
 for (let index = 0; index < arrstorge.length; index++) {
     arrstorge[index].setAttribute('Block',blocks[index]);
 }
@@ -100,7 +109,8 @@ let removeTreetrunkFromWorld = (e) => {
     const squreToStorge = e.currentTarget.id;
     if (!myWorld[getIndexRow(squreToStorge) - 1][getIndexCol(squreToStorge)].classList.contains("treetrunk")) {
         myWorld[getIndexRow(squreToStorge)][getIndexCol(squreToStorge)].classList.remove('treetrunk');
-        treeTrunkBlock.addBlock();
+        allCount.treetrunk++;
+
         return treeTrunkBlock.count;
     }
 }
@@ -109,7 +119,8 @@ let removeLeavesFromWorld = (e) => {
     const squreToStorge = e.currentTarget.id;
     if (!myWorld[getIndexRow(squreToStorge) - 1][getIndexCol(squreToStorge)].classList.contains("leaves")) {
         myWorld[getIndexRow(squreToStorge)][getIndexCol(squreToStorge)].classList.remove('leaves');
-        leavesBlock.addBlock();
+        allCount.leaves++;
+
     }
 }
 /*----------remove ground from the world------------*/
@@ -118,10 +129,9 @@ let removeGroundFromWorld = (e) => {
     console.log(myWorld[getIndexRow(squreToStorge) + 1][getIndexCol(squreToStorge)].classList);
     if (myWorld[getIndexRow(squreToStorge) - 1][getIndexCol(squreToStorge)].classList.length === 1) {
         myWorld[getIndexRow(squreToStorge)][getIndexCol(squreToStorge)].classList.remove('ground');
-        groundBlock.addBlock();
-        arrstorge[0].block = groundBlock.count;
-        console.log(arrstorge[0].block);
-        return arrstorge[0].block;
+        allCount.ground++;
+
+
     }
 }
 /*----------remove stone from the world------------*/
@@ -129,8 +139,8 @@ let removeRockFromWorld = (e) => {
     const squreToStorge = e.currentTarget.id;
     if (!myWorld[getIndexRow(squreToStorge) - 1][getIndexCol(squreToStorge)].classList.contains("stone")) {
         myWorld[getIndexRow(squreToStorge)][getIndexCol(squreToStorge)].classList.remove('stone');
-        stoneBlock.addBlock();
-        return stoneBlock.count;
+        allCount.stone++;
+
     }
 }
 /*----chack to see that player choose the right tool and calling to relevant function to delete the squre-----*/
@@ -150,26 +160,32 @@ let removeSqureFromWorld = (e) => {
 }
 /*---------choose the element player want to add to the screen-------*/
 let addToWorld = (e) => {
-    flag = true;
+    playerChooseElemennt = true;
     game.removeAttribute('id', 'curoserAxe');
     game.removeAttribute('id', 'curoserPickaxe');
     game.removeAttribute('id', 'curoserShovel');
     let x = parseInt(e.target.className.indexOf("-"));
     class_Name = e.target.className.substring(0, x); //getting the class of the elment player want
-    return flag, class_Name;
+    console.log(class_Name);
+    console.log(allCount[class_Name]);
+    
+    return playerChooseElemennt, allCount[class_Name];
 }
 
 /*---------adding the element to the screen---------*/
 let creatNew = (e) => {
     const squreLocetion = e.target.id;
     //chack if: player choose from storge & not adding in the air && not adding on top on another element 
-    if (flag && myWorld[getIndexRow(squreLocetion)][getIndexCol(squreLocetion)].classList.length === 1
-        && myWorld[getIndexRow(squreLocetion) + 1][getIndexCol(squreLocetion)].classList.length === 2 /*&& `${blockName}` > 0*/) {
+    if (playerChooseElemennt && myWorld[getIndexRow(squreLocetion)][getIndexCol(squreLocetion)].classList.length === 1
+        && myWorld[getIndexRow(squreLocetion) + 1][getIndexCol(squreLocetion)].classList.length === 2 && allCount[class_Name] > 0) {
         myWorld[getIndexRow(squreLocetion)][getIndexCol(squreLocetion)].classList.add(class_Name);
+        allCount[class_Name]--;
+        console.log(allCount[class_Name]);
+        
         //need to decreaseBlock()
     }
-    flag = false;
-    return flag;
+    playerChooseElemennt = false;
+    return playerChooseElemennt;
 }
 
 

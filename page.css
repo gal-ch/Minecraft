@@ -1,0 +1,85 @@
+html , body{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: 'Black Ops One', cursive;
+    font-family: 'Rubik Mono One', sans-serif;
+    font-family: 'Bungee', cursive;
+    background-image: url(./img/background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+img{
+    width: 50%;
+    height: 30%;
+    -webkit-animation: mover 1s infinite  alternate;
+    animation: mover 1s infinite  alternate;
+}
+
+@-webkit-keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+@keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+.info{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.829);
+    color:white;
+}
+form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+input[type=text] {
+    width: 80%;
+    font-family: 'Black Ops One', cursive;
+    font-family: 'Rubik Mono One', sans-serif;
+    font-family: 'Bungee', cursive;
+    color: white;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    background-color:rgba(0, 0, 0, 0);
+    border-bottom: 2px solid rgb(243, 237, 237);
+  }
+   input[type=submit] {
+       width: 80%;
+    background-color: rgba(0, 0, 0, 0);
+    border: white 3px solid;
+    border-radius: 30%;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-family: 'Black Ops One', cursive;
+    font-family: 'Rubik Mono One', sans-serif;
+    font-family: 'Bungee', cursive;
+  }
+  #hiden{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      display: none;
+  }
+
+.dontshow{
+    display: none;
+}
